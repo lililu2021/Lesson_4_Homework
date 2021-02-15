@@ -12,11 +12,11 @@ public class Main {
 //        Example_2();
 //        Example_3();
 //        Example_4();
-//        Example_5();  // не совсем понятно
+//        Example_5();
 //        Example_6();
 //        Example_7();
 //        Example_8();
-//        Example_9();
+        Example_9(); // в процессе разработки, не проверять
 
 
     }
@@ -107,16 +107,24 @@ public class Main {
         Random random = new Random();
         for (int number = 0; number < Array.length; number++) {
             Array[number] = -50 + random.nextInt(100);
-            if (number > 0) {
-                maxSumm += Array[number];
-            } else if (number <= 0) {
-                summ += Array[number];
+            if (Array[number] > 0) {
+                summ++;
+            } else if (summ > maxSumm) {
+                maxSumm = summ;
+                summ = 0;
             }
         }
         System.out.println(Arrays.toString(Array));
-        if (maxSumm > summ) {
-            System.out.println("Наибольшее число последовательно расположенных положительных чисел = " + maxSumm);
-        } // Почему программа складывает числа, а не их кол-во?
+        System.out.println("Наибольшее число последовательно расположенных положительных чисел = " + maxSumm);
+    }
+
+    private static boolean function(int number) {
+        for (int n = 2; n <= Math.sqrt(number); n++) {
+            if (number == 0 && number % n == 0) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private static void Example_5() {
@@ -128,26 +136,12 @@ public class Main {
         Random random = new Random();
         for (int n_1 = 0; n_1 < N.length; n_1++) {
             N[n_1] = random.nextInt(100);
-            for (int n_2 = 2; n_2 < N[n_1]; n_2++) {
-                if (N[n_1] % n_2 == 0) {
-                }
-            }
-            System.out.println(n_1);
         }
-
-
-/*        int[] a = new int[50];
-        Random random = new Random();
-        for (int i = 0; i < a.length; i++) {
-            a[i] = random.nextInt(200);
-            for (int j = 2; j < a[i]; j++) {        //???  Простое число - число, которое имеет только два
-                if (a[i] % j == 0) {                // натуральных делителя - 1 и самого себя
-                    a[i] = 0;
-                    break;
-                }
-            }
-            if (a[i] != 0) System.out.println(i);   // мы выводим сами числа или их номера в масиве?
-        }*/
+        System.out.println(Arrays.toString(N));
+        for (int n_1 = 0; n_1 < N.length; n_1++) {
+            if (function(N[n_1]))
+                System.out.print(N[n_1] + " (" + n_1 + ")");
+        }
     }
 
     private static void Example_6() {
@@ -161,40 +155,119 @@ public class Main {
         for (int i = 0; i < Array.length; i++) {
             Array[i] = random.nextInt(100);
         }
-        int a = Array[1];
-        int b = Array[1];
+        int a = Array[0];
+        int b = Array[0];
         for (int n1 = 0; n1 < Array.length; n1++) {
-                if (Array[n1] > a) {
-                    a = Array[n1];
-                    n1 = max;
-                } else if (Array[n1] < b) {
-                    b = Array[n1];
-                    n1 = min;
-                }
+            if (Array[n1] > a) {
+                a = Array[n1];
+                max = n1;
+            } else if (Array[n1] < b) {
+                b = Array[n1];
+                min = n1;
+            }
         }
         System.out.println(Arrays.toString(Array));
         Array[max] = 0;
         Array[min] = 0;
         System.out.println(Arrays.toString(Array));
-    } // Что не так? Почему заменяет 0 только первый элемент?
+    }
 
 
     private static void Example_7() {
 /*      Заменить нулями все повторяющиеся элементы в массиве, оставив их первые вхождения,
     то есть в массиве должны остаться только разные элементы.*/
+
+        int[] Array = new int[20];
+        Random random = new Random();
+        for (int i = 0; i < Array.length; i++) {
+            Array[i] = random.nextInt(20);
+        }
+        System.out.println(Arrays.toString(Array));
+        for (int n1 = 1; n1 < Array.length; n1++) {
+            for (int n2 = 2; n2 < n1 - 1; n2++) {
+                if (Array[n1] == Array[n2]) {
+                    Array[n1] = 0;
+                }
+            }
+        }
+        System.out.println(Arrays.toString(Array));
     }
 
 
     private static void Example_8() {
-/*      Заменить нулями :
-    а) все отрицательные элементы;
-    б) все элементы, большие данного числа n;
-    в) все элементы, начиная с n1-го по n2-й (n1 ≤ n2).*/
+//      Заменить нулями :
+/*//    а) все отрицательные элементы;
+
+        int[] Array = new int[20];
+        Random random = new Random();
+        int a = 0;
+        for (int i = 0; i < Array.length; i++) {
+            Array[i] = -10 + random.nextInt(25);
+        }
+        System.out.println(Arrays.toString(Array));
+        for (int n1 = 0; n1 < Array.length; n1++) {
+            if (Array[n1] < 0) {
+                Array[n1] = a;
+                a = 0;
+            }
+        }
+        System.out.println(Arrays.toString(Array));*/
+
+/*//    б) все элементы, большие данного числа n;
+
+        int[] Array = new int[20];
+        Random random = new Random();
+        int numberN = 5 + random.nextInt(20), a = 0;
+        System.out.println("numberN = " + numberN);
+        for (int i = 0; i < Array.length; i++) {
+            Array[i] = random.nextInt(25);
+        }
+        System.out.println(Arrays.toString(Array));
+        for (int n1 = 0; n1 < Array.length; n1++) {
+            if (Array[n1] > numberN) {
+                Array[n1] = a;
+                a = 0;
+            }
+        }
+        System.out.println(Arrays.toString(Array));*/
+
+/*//    в) все элементы, начиная с n1-го по n2-й (n1 ≤ n2).
+
+        int[] Array = new int[20];
+        Random random = new Random();
+        int n1 = random.nextInt(15);
+        int n2 = n1 + random.nextInt(15);
+        int a = 0;
+        System.out.println("n1 = " + n1 + ", n2 = " + n2);
+
+        for (int i = 0; i < Array.length; i++) {
+            Array[i] = random.nextInt(30);
+        }
+        System.out.println(Arrays.toString(Array));
+        for (int k = 0; k < Array.length; k++) {
+            if (Array[k] >= n1 && Array[k] <= n2) {
+                Array[k] = a;
+                a = 0;
+            }
+        }
+        System.out.println(Arrays.toString(Array));*/
     }
 
-    private static void Example_9() {
-/*      Дан массив целых чисел. Удалить из него:
-    а) все четные элементы, стоящие на нечетных местах;
-    б) все элементы, кратные 3 или 5.*/
+    private static void Example_9() { // в процессе разработки, не проверять
+//      Дан массив целых чисел. Удалить из него:
+//    а) все четные элементы, стоящие на нечетных местах;
+
+        int[] Array = new int[20];
+        Random random = new Random();
+        for (int i = 0; i < Array.length; i++) {
+            Array[i] = random.nextInt(20);
+        }
+        System.out.println(Arrays.toString(Array));
+        int[] Array2 = new int[copy.Array];
+
+
+//    б) все элементы, кратные 3 или 5.
+
+
     }
 }
