@@ -261,13 +261,17 @@ public class Main {
         Random random = new Random();
         for (int i = 0; i < Array.length; i++) {
             Array[i] = random.nextInt(20);
-        }
+//            if () {
+//            }
+            }
         System.out.println(Arrays.toString(Array));
-        int[] Array2 = new int[copy.Array];
+        System.out.println(Arrays.hashCode(Array));
+    }
+
 
 
 //    б) все элементы, кратные 3 или 5.
 
 
     }
-}
+
